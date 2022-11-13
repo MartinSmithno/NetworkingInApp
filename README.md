@@ -23,3 +23,7 @@ The client acknowledges the server's response in the final step.
 - SMTP (Simple Mail Transfer Protocol),
 - SSH (Secure Shell Protocol)
       The key difference between **SSH** vs **SSL** is that SSH is used for creating a secure tunnel to another computer from which you can issue commands, transfer data, etc. On the other end, SSL is used for securely transferring data between two parties.
+- HTTP (Hypertext Transfer Protocol)
+- HTTP (Hypertext Transfer Protocol Secure)
+      Difference: HTTPS is HTTP with encryption. The difference between the two protocols is that HTTPS uses TLS (SSL) to encrypt normal HTTP requests and responses. As a result, HTTPS is far more secure than HTTP. 
+      TLS: Transport Layer Security (TLS) is the successor protocol to SSL. TLS is an improved version of SSL. It works in much the same way as the SSL, using encryption to protect the transfer of data and information.
