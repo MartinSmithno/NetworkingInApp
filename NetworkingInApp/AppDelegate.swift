@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  NetworkingInApp
-//
-//  Created by Martin Smith on 13/11/2022.
-//
-
 import UIKit
 
 @main
