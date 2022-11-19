@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CB359752926F12000A8413F /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB359742926F12000A8413F /* Dog.swift */; };
 		2CE8DFAD29214AB400A8155A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8DFAC29214AB400A8155A /* AppDelegate.swift */; };
 		2CE8DFAF29214AB400A8155A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8DFAE29214AB400A8155A /* SceneDelegate.swift */; };
 		2CE8DFB129214AB400A8155A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8DFB029214AB400A8155A /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2CB359742926F12000A8413F /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		2CE8DFA929214AB400A8155A /* NetworkingInApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkingInApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE8DFAC29214AB400A8155A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE8DFAE29214AB400A8155A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,6 +39,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CB359712926E77900A8413F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		2CB359722926E78700A8413F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2CE8DFB029214AB400A8155A /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2CB359732926E78C00A8413F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2CB359742926F12000A8413F /* Dog.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2CE8DFA029214AB300A8155A = {
 			isa = PBXGroup;
 			children = (
@@ -58,7 +83,9 @@
 			children = (
 				2CE8DFAC29214AB400A8155A /* AppDelegate.swift */,
 				2CE8DFAE29214AB400A8155A /* SceneDelegate.swift */,
-				2CE8DFB029214AB400A8155A /* ViewController.swift */,
+				2CB359732926E78C00A8413F /* Model */,
+				2CB359722926E78700A8413F /* View */,
+				2CB359712926E77900A8413F /* Presenter */,
 				2CE8DFB229214AB400A8155A /* Main.storyboard */,
 				2CE8DFB529214AB700A8155A /* Assets.xcassets */,
 				2CE8DFB729214AB700A8155A /* LaunchScreen.storyboard */,
@@ -140,6 +167,7 @@
 			files = (
 				2CE8DFB129214AB400A8155A /* ViewController.swift in Sources */,
 				2CE8DFAD29214AB400A8155A /* AppDelegate.swift in Sources */,
+				2CB359752926F12000A8413F /* Dog.swift in Sources */,
 				2CE8DFAF29214AB400A8155A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
