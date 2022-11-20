@@ -51,26 +51,7 @@ class ViewController: UIViewController {
     }
     
     @objc func fetchImageFrom() {
-        print("Location: \(urlString)")
-        guard let apiURL = URL(string: urlString) else {
-            print("Not valid URL")
-            return
-        }
-        print("ImageURL is valid, let's make the task")
-        let task = URLSession.shared.dataTask(with: apiURL) { [self] (data, response, error) in
-            guard let data = data else {
-                print("not at valid data")
-                return
-            }
-            print("Response: \(String(describing: response)), Let's create decoder and create Dog struct from data")
-            let decoder = JSONDecoder()
-            let dog = try! decoder.decode(Dog.self, from: data)
-            print("We got image URL as String from API and use it to get image with this URL, URL could be nil so use guard let")
-            guard let imageURL = URL(string: dog.message) else { print("URL from API is nil"); return }
-            self.requestImageFile(url: imageURL, completionHandler: self.handleImageFileResponse(image:error:))
-            print("Congrats!")
-        }
-        task.resume()
+        requestRandomImage(completionHandler: handleImageResponse(imageData:error:))
     }
     
     func addTargets() {
@@ -100,8 +81,7 @@ class ViewController: UIViewController {
     
     private func requestImageFile(url: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else { print("not a valid data from url which is got from API"); completionHandler(nil, error) ; return }
-            print("Let's convert data to UIImage")
+            guard let data = data else { completionHandler(nil, error); return }
             let downloadedImage = UIImage(data: data)
             completionHandler(downloadedImage, nil)
         }
@@ -114,8 +94,20 @@ class ViewController: UIViewController {
         }
     }
     
-    private func requestRandomImage() {
-        
+    private func requestRandomImage(completionHandler: @escaping (Dog?, Error?) -> Void) {
+        guard let apiURL = URL(string: urlString) else { print("Not valid URL"); return }
+        let task = URLSession.shared.dataTask(with: apiURL) {(data, response, error) in
+            guard let data = data else {print("not at valid data");completionHandler(nil,error);return}
+            let decoder = JSONDecoder()
+            let dog = try! decoder.decode(Dog.self, from: data)
+            completionHandler(dog, nil)
+        }
+        task.resume()
+    }
+    
+    private func handleImageResponse(imageData: Dog?, error: Error?) {
+        guard let imageURL = URL(string: imageData?.message ?? "") else { return }
+        self.requestImageFile(url: imageURL, completionHandler: self.handleImageFileResponse(image:error:))
     }
 }
 
