@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = UIColor.lightGray
         imageView.alpha = 0.8
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
             return
         }
         print("ImageURL is valid, let's make the task")
-        let task = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: apiURL) { [self] (data, response, error) in
             guard let data = data else {
                 print("not at valid data")
                 return
@@ -67,45 +67,7 @@ class ViewController: UIViewController {
             let dog = try! decoder.decode(Dog.self, from: data)
             print("We got image URL as String from API and use it to get image with this URL, URL could be nil so use guard let")
             guard let imageURL = URL(string: dog.message) else { print("URL from API is nil"); return }
-            let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
-                guard let data = data else { print("not a valid data from url which is got from API"); return }
-                print("Let's convert data to UIImage")
-                let downloadedImage = UIImage(data: data)
-                DispatchQueue.main.async {
-                    self.imageView.image = downloadedImage
-                }
-            }
-            task.resume()
-/*
-            => 2. With JSON Serialization object
-            print("Data is valid, get convert data to JSON object")
-            do {
-                let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
-                print("We can get URL of a random picture with 'message' keyword")
-                let urlFromAPI = json["message"] as! String
-                print("We have parsed the dog API's JSON response in app!")
-            } catch {
-                print("Error: \(error)")
-            }
-*/
-
-/*
-            => 1. Convert data into UIIMage
-            print("Data is valid, get convert data to image")
-            let downloadedImage = UIImage(data: data)
-            print("Let's use downloadedimage in our ImageView")
-            guard let image = downloadedImage else {
-                print ("Downloaded image is not valid")
-                return
-            }
-            //Update UI works allways o main thread!
-            DispatchQueue.main.async {
-                self.imageView.image = image
-                print("Lets check the UI!")
-            }
- */
-            
-
+            self.requestImageFile(url: imageURL, completionHandler: self.handleImageFileResponse(image:error:))
             print("Congrats!")
         }
         task.resume()
@@ -135,4 +97,53 @@ class ViewController: UIViewController {
             
         ])
     }
+    
+    private func requestImageFile(url: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let data = data else { print("not a valid data from url which is got from API"); completionHandler(nil, error) ; return }
+            print("Let's convert data to UIImage")
+            let downloadedImage = UIImage(data: data)
+            completionHandler(downloadedImage, nil)
+        }
+        task.resume()
+    }
+    
+    private func handleImageFileResponse(image: UIImage?, error: Error?) {
+        DispatchQueue.main.async {
+            self.imageView.image = image
+        }
+    }
+    
+    private func requestRandomImage() {
+        
+    }
 }
+
+/*
+ => 2. With JSON Serialization object
+ print("Data is valid, get convert data to JSON object")
+ do {
+ let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+ print("We can get URL of a random picture with 'message' keyword")
+ let urlFromAPI = json["message"] as! String
+ print("We have parsed the dog API's JSON response in app!")
+ } catch {
+ print("Error: \(error)")
+ }
+ */
+
+/*
+ => 1. Convert data into UIIMage
+ print("Data is valid, get convert data to image")
+ let downloadedImage = UIImage(data: data)
+ print("Let's use downloadedimage in our ImageView")
+ guard let image = downloadedImage else {
+ print ("Downloaded image is not valid")
+ return
+ }
+ //Update UI works allways o main thread!
+ DispatchQueue.main.async {
+ self.imageView.image = image
+ print("Lets check the UI!")
+ }
+ */
