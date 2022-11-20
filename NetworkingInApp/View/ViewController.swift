@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         var imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = UIColor.lightGray
-        imageView.alpha = 0.5
+        imageView.alpha = 0.8
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -52,16 +52,32 @@ class ViewController: UIViewController {
     
     @objc func fetchImageFrom() {
         print("Location: \(urlString)")
-        guard let imageURL = URL(string: urlString) else {
+        guard let apiURL = URL(string: urlString) else {
             print("Not valid URL")
             return
         }
         print("ImageURL is valid, let's make the task")
-        let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: apiURL) { (data, response, error) in
             guard let data = data else {
                 print("not at valid data")
                 return
             }
+            print("Response: \(String(describing: response)), Let's create decoder and create Dog struct from data")
+            let decoder = JSONDecoder()
+            let dog = try! decoder.decode(Dog.self, from: data)
+            print("We got image URL as String from API and use it to get image with this URL, URL could be nil so use guard let")
+            guard let imageURL = URL(string: dog.message) else { print("URL from API is nil"); return }
+            let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+                guard let data = data else { print("not a valid data from url which is got from API"); return }
+                print("Let's convert data to UIImage")
+                let downloadedImage = UIImage(data: data)
+                DispatchQueue.main.async {
+                    self.imageView.image = downloadedImage
+                }
+            }
+            task.resume()
+/*
+            => 2. With JSON Serialization object
             print("Data is valid, get convert data to JSON object")
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
@@ -71,7 +87,10 @@ class ViewController: UIViewController {
             } catch {
                 print("Error: \(error)")
             }
+*/
+
 /*
+            => 1. Convert data into UIIMage
             print("Data is valid, get convert data to image")
             let downloadedImage = UIImage(data: data)
             print("Let's use downloadedimage in our ImageView")
@@ -85,6 +104,8 @@ class ViewController: UIViewController {
                 print("Lets check the UI!")
             }
  */
+            
+
             print("Congrats!")
         }
         task.resume()

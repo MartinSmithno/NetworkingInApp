@@ -1,6 +1,6 @@
 import UIKit
 
-struct Dog {
-    var message: String
-    var statusCode: String
+struct Dog: Codable {
+    let message: String
+    let status: String
 }
