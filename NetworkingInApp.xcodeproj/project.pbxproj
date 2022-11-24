@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2CB359752926F12000A8413F /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB359742926F12000A8413F /* Dog.swift */; };
+		2CBB17CA292F6D7B00E9E41B /* PickerPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB17C9292F6D7B00E9E41B /* PickerPageVC.swift */; };
 		2CE8DFAD29214AB400A8155A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8DFAC29214AB400A8155A /* AppDelegate.swift */; };
 		2CE8DFAF29214AB400A8155A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8DFAE29214AB400A8155A /* SceneDelegate.swift */; };
 		2CE8DFB129214AB400A8155A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8DFB029214AB400A8155A /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		2CB359742926F12000A8413F /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
+		2CBB17C9292F6D7B00E9E41B /* PickerPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerPageVC.swift; sourceTree = "<group>"; };
 		2CE8DFA929214AB400A8155A /* NetworkingInApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetworkingInApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CE8DFAC29214AB400A8155A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CE8DFAE29214AB400A8155A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				2CE8DFB029214AB400A8155A /* ViewController.swift */,
+				2CBB17C9292F6D7B00E9E41B /* PickerPageVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			files = (
 				2CE8DFB129214AB400A8155A /* ViewController.swift in Sources */,
 				2CE8DFAD29214AB400A8155A /* AppDelegate.swift in Sources */,
+				2CBB17CA292F6D7B00E9E41B /* PickerPageVC.swift in Sources */,
 				2CB359752926F12000A8413F /* Dog.swift in Sources */,
 				2CE8DFAF29214AB400A8155A /* SceneDelegate.swift in Sources */,
 			);
