@@ -34,9 +34,17 @@ class ViewController: UIViewController {
     }()
     
     var button: UIButton = {
-        var button = UIButton(type: .system)
+        var button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Get Image", for: .normal)
+        
+        return button
+    }()
+    
+    var nextPageButton: UIButton = {
+        var button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Next Page", for: .normal)
         
         return button
     }()
@@ -54,15 +62,25 @@ class ViewController: UIViewController {
         requestRandomImage(completionHandler: handleImageResponse(imageData:error:))
     }
     
+    @objc func presentNextPage() {
+        print("Go to next page...")
+        self.presentNextPageVC()
+    }
+
     func addTargets() {
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.fetchImageFrom()
+        }), for: .primaryActionTriggered)
+        
+        nextPageButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.presentNextPage()
         }), for: .primaryActionTriggered)
     }
     
     func addViews() {
         view.addSubview(imageView)
         view.addSubview(button)
+        view.addSubview(nextPageButton)
     }
     
     func addConstraints() {
@@ -74,8 +92,11 @@ class ViewController: UIViewController {
             button.heightAnchor.constraint(equalToConstant: 50),
             button.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
-            
+            button.bottomAnchor.constraint(equalTo: nextPageButton.topAnchor, constant: -8),
+            nextPageButton.heightAnchor.constraint(equalToConstant: 50),
+            nextPageButton.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
+            nextPageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextPageButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
     }
     
@@ -108,6 +129,18 @@ class ViewController: UIViewController {
     private func handleImageResponse(imageData: Dog?, error: Error?) {
         guard let imageURL = URL(string: imageData?.message ?? "") else { return }
         self.requestImageFile(url: imageURL, completionHandler: self.handleImageFileResponse(image:error:))
+    }
+}
+
+extension ViewController {
+    private func presentNextPageVC() {
+        let vc = NextPageVC()
+        let navController = UINavigationController(rootViewController: vc)
+        if let presentationController = navController.presentationController as? UISheetPresentationController {
+            presentationController.detents = [.medium(), .large()]
+            presentationController.prefersGrabberVisible = false
+        }
+        present(navController, animated: true)
     }
 }
 
