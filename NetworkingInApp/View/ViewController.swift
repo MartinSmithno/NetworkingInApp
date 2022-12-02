@@ -1,5 +1,9 @@
 import UIKit
 
+protocol DogImageView: AnyObject {
+    func changeImageOnMainPage(_ image: UIImage?)
+}
+
 enum DogAPIRequestType {
     case random
     case randomForBreed
@@ -130,9 +134,13 @@ class ViewController: UIViewController {
     }
     
     private func handleImageFileResponse(image: UIImage?, error: Error?) {
-        DispatchQueue.main.async {
-            self.imageView.image = image
+        DispatchQueue.main.async { [self] in
+            changeImageOnMainPage(image)
         }
+    }
+    
+    func changeImageOnMainPage(_ image: UIImage?) {
+        self.imageView.image = image
     }
 }
 
